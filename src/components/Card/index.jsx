@@ -1,5 +1,4 @@
 import Rating from 'react-rating-stars-component';
-import MaterialIcon from '@material/react-material-icon';
 import { RestaurantCard, Infos, Title, Address, Image } from './styles';
 
 
@@ -20,9 +19,7 @@ function Card() {
         />
         <Address>Endereço, 1010 - Cidade / SC</Address>
       </Infos>
-      <Image img={image}>
-        <MaterialIcon role='button' icon='search' color />
-      </Image>
+      <Image img={image} />
     </RestaurantCard>
   )
 }

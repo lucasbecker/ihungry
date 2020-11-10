@@ -14,7 +14,7 @@ export const RestaurantCard = styled.div`
   transition: all 0.2s;
   :hover {
     border-left-color: ${props => props.theme.colors.primary};
-    background-color: ${ props => props.theme.colors.background}
+    background-color: ${ props => props.theme.colors.background};  
   }
 `;
 
@@ -48,11 +48,4 @@ export const Image = styled.div`
   background-image: url(${(props) => props.img});
   background-position: center;
   background-size: cover;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  color: #fff; 
-  text-shadow: 2px 2px 2px #000;
 `;
