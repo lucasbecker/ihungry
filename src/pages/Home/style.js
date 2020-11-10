@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import Slider from 'react-slick';
+
 
 export const ContainerWrapper = styled.div`
   display: flex;
@@ -34,7 +36,22 @@ export const Header = styled.section`
 `;
 
 export const Logo = styled.img`
-  margin-bottom: 16px;
+  margin: 16px 0;
+`;
+
+export const CarouselTitle = styled.h2`
+  font-family: ${ props => props.theme.fonts.regular };
+  color: ${ props => props.theme.colors.text };
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 29px;
+  margin: 16px 0;
+`;
+
+export const Carousel = styled(Slider)`
+  .slick-slide {
+    margin-right: 16px;
+  }
 `;
 
 export const Map = styled.div`
