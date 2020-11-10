@@ -4,22 +4,22 @@ import { RestaurantCard, Infos, Title, Address, Image } from './styles';
 
 import image from '../../assets/restaurante-fake.png';
 
-function Card() {
+function Card({ restaurant, onClick }) {
   return(
-    <RestaurantCard>
+    <RestaurantCard onClick={onClick}>
       <Infos>
-        <Title>Nome do Estabelecimento</Title>
+        <Title>{restaurant.name}</Title>
         <Rating 
           isHalf
           edit={false}
           count={5}
-          value={3}
+          value={restaurant.rating}
           activeColor='#e7711c'
           size={22}
         />
-        <Address>Endereço, 1010 - Cidade / SC</Address>
+        <Address>{restaurant.vicinity || restaurant.formatted_address}</Address>
       </Infos>
-      <Image img={image} />
+      <Image img={restaurant.photos ? restaurant.photos[0].getUrl() : image} />
     </RestaurantCard>
   )
 }
