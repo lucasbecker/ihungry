@@ -25,7 +25,7 @@ export const Sidebar = styled.aside`
   }
 `;
 
-export const Header = styled.section`
+export const Header = styled.header`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -33,6 +33,7 @@ export const Header = styled.section`
   background-color: #fff;
   padding: 16px;
   
+  overflow-x: hidden;
 `;
 
 export const Logo = styled.img`

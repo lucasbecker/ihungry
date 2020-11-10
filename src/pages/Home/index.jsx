@@ -6,6 +6,7 @@ import { ContainerWrapper, Sidebar, Header, Logo, CarouselTitle, Carousel, Map }
 import CarouselItem from '../../components/CarouselItem'
 import logoImg from '../../assets/logo-temp.svg';
 import restaurantFake from '../../assets/restaurante-fake.png';
+import Card from '../../components/Card';
 
 function Home(){
   const [inputValue, setInputValue] = useState('');
@@ -15,6 +16,7 @@ function Home(){
   }
 
   const settings = {
+    nextArrow: false,
     dots: false,
     infinite: false,
     speed: 300,
@@ -48,6 +50,7 @@ function Home(){
             <CarouselItem image={restaurantFake} title='Nome do estabelecimento'/>
           </Carousel>
         </Header>
+        <Card />
       </Sidebar>
       <Map />
     </ContainerWrapper>
