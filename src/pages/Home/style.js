@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import Slider from 'react-slick';
 
-
 export const ContainerWrapper = styled.div`
   display: flex;
 `;
@@ -55,10 +54,12 @@ export const Carousel = styled(Slider)`
   }
 `;
 
-export const Map = styled.div`
+export const MapSection = styled.section`
   background-color: #000;
   width: calc(100vw - 360px);
   height: 100vh;
+
+  overflow: hidden;
 `;
 
 export const ModalTitle = styled.h2`

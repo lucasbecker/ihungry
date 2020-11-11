@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import Skeleton from '../Skeleton';
 
 const Item = styled.div`
   width: 90px;
@@ -25,10 +27,24 @@ const Label = styled.span`
 `;
 
 function CarouselItem({ image, title }) {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  useEffect(() => {
+    const imageLoader = new Image();
+    imageLoader.src = image;
+    imageLoader.onload = () => setImageLoaded(true);
+  }, [image])
+
   return (
-    <Item img={image} > 
-      <Label>{title}</Label>
-    </Item>
+    <>
+    {imageLoaded ? (
+      <Item img={image} > 
+        <Label>{title}</Label>
+      </Item>
+    ) : (
+      <Skeleton width='90px' height='90px' />
+    )}
+    </>
   );
 }
 

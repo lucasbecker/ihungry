@@ -40,12 +40,10 @@ export const Address = styled.p`
   margin-top: 8px;
 `;
 
-export const Image = styled.div`
-  width: 120px;
+export const Image = styled.img`
+  display: ${(props) => (props.imageLoaded ? 'block' : 'none')};
+  width: 100px;
   height: 100px;
   border-radius: 6px;
-
-  background-image: url(${(props) => props.img});
-  background-position: center;
-  background-size: cover;
+  object-fit: cover;
 `;
