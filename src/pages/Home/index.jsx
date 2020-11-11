@@ -3,29 +3,35 @@ import { useSelector } from 'react-redux';
 import TextField, { Input } from '@material/react-text-field';
 import MaterialIcon from '@material/react-material-icon';
 
-import { ContainerWrapper, Sidebar, Header, Logo, CarouselTitle, Carousel, ModalTitle, ModalContent } from './style';
 import CarouselItem from '../../components/CarouselItem'
-import logoImg from '../../assets/logo-temp.svg';
-import restaurantFake from '../../assets/restaurante-fake.png';
 import Card from '../../components/Card';
 import Modal from '../../components/Modal';
 import Map from '../../components/Map';
 import Loader from '../../components/Loader';
 import Skeleton from '../../components/Skeleton';
 
+import { 
+  ContainerWrapper, 
+  Sidebar, 
+  Header, 
+  Logo, 
+  CarouselTitle, 
+  Carousel, 
+  ModalTitle, 
+  ModalContent 
+} from './style';
+
+import restaurantFake from '../../assets/restaurante-fake.png';
+
 function Home(){
   const [inputValue, setInputValue] = useState('');
-  const [query, setQuery] = useState(null);
+  const [query, setQuery] = useState('');
   const [placeId, setPlaceId] = useState(null);
   const [modalOpened, setModalOpened] = useState(false);
   const { restaurants, restaurantSelected } = useSelector( state => state.restaurants );
-
-  const handlerInputValue = (event) => {
-    setInputValue(event.target.value);
-  }
+  const hasRestaurants = restaurants.length > 0;
 
   const settings = {
-    nextArrow: false,
     dots: false,
     infinite: true,
     autoplay: true,
@@ -33,6 +39,10 @@ function Home(){
     slidesToShow: 4,
     slidesToScroll: 1,
     adaptiveHeight: true,
+  }
+
+  const handlerInputValue = (e) => {
+    setInputValue(e.target.value);
   }
 
   function handlerKeyPres(event){
@@ -46,11 +56,42 @@ function Home(){
     setModalOpened(true);
   }
 
+  function renderCarousel() {
+    if(hasRestaurants){
+      return (
+        <>
+          <CarouselTitle>Próximo de você</CarouselTitle>
+          <Carousel {...settings} >
+            { restaurants.map( restaurant => (
+              <CarouselItem 
+                key={`carousel-${restaurant.place_id}`}
+                image={restaurant.photos ? restaurant.photos[0].getUrl() : restaurantFake} 
+                title={restaurant.name}  
+              />
+            )) }
+          </Carousel>
+        </>
+      )
+    }
+
+    return <Loader />;
+  }
+
+  function renderCards() {
+    if(hasRestaurants){
+      return restaurants.map( restaurant => (
+        <Card onClick={() => handlerOpenModal(restaurant.place_id)} key={`card-${restaurant.place_id}`} restaurant={restaurant} />
+      ))
+    }
+
+    return null;
+  }
+
   return(
     <ContainerWrapper>
       <Sidebar>
         <Header>
-          <Logo src={logoImg} alt='logo' />
+          <Logo>iHungry</Logo>
           <TextField
             outlined
             label='Pesquisar'
@@ -62,32 +103,26 @@ function Home(){
               onKeyPress={handlerKeyPres}
             />
           </TextField>
-          {restaurants.length > 0 ? (
-            <>
-              <CarouselTitle>Próximo de você</CarouselTitle>
-              <Carousel {...settings} >
-                { restaurants.map( restaurant => (
-                  <CarouselItem 
-                    key={`carousel-${restaurant.place_id}`}
-                    image={restaurant.photos ? restaurant.photos[0].getUrl() : restaurantFake} 
-                    title={restaurant.name}  
-                  />
-                )) }
-              </Carousel>
-            </>
-          ) : (<Loader />) }
+
+          { renderCarousel() }
           
         </Header>
-        { restaurants.map( restaurant => (
-          <Card onClick={() => handlerOpenModal(restaurant.place_id)} key={`card-${restaurant.place_id}`} restaurant={restaurant} />
-        )) }
+
+        { renderCards() }
+
       </Sidebar>
+      
       <Map query={query} placeId={placeId} />
+      
       <Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)} >
         {restaurantSelected ? (
           <>
             <ModalTitle>{restaurantSelected?.name}</ModalTitle>
-            <ModalContent>{restaurantSelected?.opening_hours?.open_now ? 'Aberto!' : 'Fechado!'}</ModalContent>
+            <ModalContent>{
+              restaurantSelected?.opening_hours?.open_now 
+              ? 'Aberto!' 
+              : 'Fechado!'
+            }</ModalContent>
             <ModalContent>{restaurantSelected?.formatted_phone_number}</ModalContent>
             <ModalContent>{restaurantSelected?.formatted_address}</ModalContent>
           </>

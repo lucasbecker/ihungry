@@ -14,7 +14,7 @@ export const RestaurantCard = styled.div`
   transition: all 0.2s;
   :hover {
     border-left-color: ${props => props.theme.colors.primary};
-    background-color: ${ props => props.theme.colors.background};  
+    //background-color: ${ props => props.theme.colors.background};  
   }
 `;
 

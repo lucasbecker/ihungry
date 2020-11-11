@@ -11,16 +11,21 @@ export const Sidebar = styled.aside`
   height: 100vh;
   overflow-y: auto;
 
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+
   //Estilizando scroll
   ::-webkit-scrollbar-track {
-    background-color: #F4F4F4;
+    background-color: ${ props => props.theme.colors.background };
   }
   ::-webkit-scrollbar {
       width: 6px;
       background: #F4F4F4;
   }
   ::-webkit-scrollbar-thumb {
-      background: #dad7d7;
+      background: ${props => props.theme.colors.primary};
   }
 `;
 
@@ -35,8 +40,15 @@ export const Header = styled.header`
   overflow-x: hidden;
 `;
 
-export const Logo = styled.img`
+export const Logo = styled.h1`
   margin: 16px 0;
+  width: 100%;
+  height: 60px;
+  text-align: center;
+  color: ${ props => props.theme.colors.primary };
+  font-family: ${ props => props.theme.fonts.regular };
+  font-size: 60px;
+  font-weight: bold;
 `;
 
 export const CarouselTitle = styled.h2`
